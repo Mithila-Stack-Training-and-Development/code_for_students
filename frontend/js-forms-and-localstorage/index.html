@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+  <h1>Mithilastack Training Program Enroll form</h1>
+
+  <fieldset>
+    <legend>Local Storage Form</legend>
+    <form id="localStorageForm">
+      <div>
+        <label for="">Name</label>
+        <input id="lname" type="text" name="name" placeholder="Enter your name" />
+      </div>
+
+      <div style="margin-top: 10px;">
+        <label for="">Email</label>
+        <input id="lemail" type="email" name="email" placeholder="Enter your email" />
+      </div>
+
+      <div style="margin: 10px;">
+        <button type="submit">Add to LocalStorage</button>
+        <button type="reset">Clear Local Storage</button>
+      </div>
+    </form>
+
+    <p style="max-width: 500px;">
+      If data will be available in your browser then you can see the data will be automatically filled into the form but
+      <b>if you will change tab then this data will save in localstorage</b>
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Session Storage Form</legend>
+    <form id="sessionStorageForm">
+      <div>
+        <label for="">Name</label>
+        <input id="sname" type="text" name="name" placeholder="Enter your name" />
+      </div>
+
+      <div style="margin-top: 10px;">
+        <label for="">Email</label>
+        <input id="semail" type="email" name="email" placeholder="Enter your email" />
+      </div>
+
+      <div style="margin: 10px;">
+        <button type="submit">Add to session Storage</button>
+        <button type="reset">Clear Session Storage</button>
+      </div>
+    </form>
+    <p style="max-width: 500px;">
+      If data will be available in your browser then you can see the data will be automatically filled into the form but
+      <b>if you will change tab then this data will gone</b>
+    </p>
+  </fieldset>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
