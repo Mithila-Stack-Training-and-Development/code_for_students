@@ -6,6 +6,7 @@ const ContactSection = () => {
   // const [name, setName] = useState("")
   // const [email, setEmail] = useState("")
   // const [message, setMessage] = useState("")
+
   const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -14,21 +15,64 @@ const ContactSection = () => {
     message: ""
   })
 
+  const [errors, setErrors] = useState({})
+
+  const validate = (values) => {
+    const errors = {};
+
+
+    if (values.name == "") {
+      errors.name = "Name is required"
+    }
+
+    if (!/^[A-Za-z ]+$/.test(values.name)) {
+      errors.name = "Please enter valid name"
+    }
+
+    if (values.email == "") {
+      errors.email = "Email is required"
+    }
+
+    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(values.email)) {
+      errors.email = "Please enter valid email and email must be gmail"
+    }
+
+    if (values.message == "") {
+      errors.message = "Message is required"
+    }
+
+    if (!/^[a-zA-Z0-9 .,!?'"()\-\n\r]+$/.test(values.message)) {
+      errors.message = "Please enter valid message"
+    }
+
+
+
+    return errors
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("clicked")
 
-    setLoading(true)
+    const errors = validate(formData) // {} 
+
+    if (Object.keys(errors).length > 0) {
+
+      console.log("into if block")
+      setErrors(errors)
+
+    } else {
+
+      console.log("into else block")
 
 
-    // api call
+      setLoading(true)
 
-    setTimeout(() => {
-      setLoading(false)
-      alert("Form Submit successfully")
-    }, 3000);
+      setTimeout(() => {
+        setLoading(false)
+        alert("Form Submit successfully")
+      }, 3000);
 
+    }
   }
 
   const handleChange = (e) => {
@@ -95,10 +139,10 @@ const ContactSection = () => {
                 type="text"
                 id="name"
                 name="name"
-                required
                 onChange={handleChange}
                 className="w-full mt-1 p-2 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
               />
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
             </div>
 
             <div>
@@ -110,10 +154,10 @@ const ContactSection = () => {
                 type="email"
                 id="email"
                 name="email"
-                required
                 onChange={handleChange}
                 className="w-full mt-1 p-2 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
               />
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
             </div>
 
             <div>
@@ -124,11 +168,11 @@ const ContactSection = () => {
                 value={formData.message}
                 id="message"
                 rows="4"
-                required
                 name="message"
                 onChange={handleChange}
                 className="w-full mt-1 p-2 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
               ></textarea>
+              <p className="text-red-500 text-sm mt-1">{errors.message}</p>
             </div>
 
             <button
@@ -136,7 +180,7 @@ const ContactSection = () => {
               disabled={loading}
               className={`flex items-center gap-2 bg-indigo-600 text-white px-5 py-2 rounded hover:bg-indigo-700 transition ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             >
-              {loading ? <Loader className="animate-spin"/> :<Send size={16} />}
+              {loading ? <Loader className="animate-spin" /> : <Send size={16} />}
               {loading ? "Sending..." : "Send Message"}
             </button>
           </motion.form>
