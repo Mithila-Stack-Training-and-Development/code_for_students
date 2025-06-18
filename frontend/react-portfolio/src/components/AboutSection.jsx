@@ -1,8 +1,12 @@
 import { BadgeCheck, Code, Laptop, Layers3 } from "lucide-react";
 import { motion } from "framer-motion";
 import HeroImage from "../assets/hero-section.avif";
+import { useCounter } from "../provider/CounterProvider";
 
 const AboutSection = () => {
+  // const { setCounter } = useContext(CounterContext)
+  const { setCounter } = useCounter()
+
   return (
     <section id="about" className="py-20 bg-white text-gray-800">
       <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-14 items-center">
@@ -34,6 +38,8 @@ const AboutSection = () => {
               <Layers3 className="text-indigo-600" /> Comfortable with Git, CI/CD, and deployment workflows
             </li>
           </ul>
+
+          <button onClick={() => setCounter(prev => prev + 5)} className="bg-red-500 rounded-md p-2 text-white mt-4">Update Count + 5</button>
         </motion.div>
 
         {/* RIGHT - Image or Illustration */}

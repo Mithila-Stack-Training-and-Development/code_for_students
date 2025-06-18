@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CounterContext } from "../provider/CounterProvider";
 
 const Navbar = () => {
+  const { counter } = useContext(CounterContext)
   const [menuOpen, setMenuOpen] = useState(false);
+
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -50,6 +53,8 @@ const Navbar = () => {
               <span className="block h-0.5 bg-indigo-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
             </Link>
           ))}
+
+          <span className="text-red-500">Count: {counter}</span>
         </nav>
 
         {/* Mobile Menu Button */}

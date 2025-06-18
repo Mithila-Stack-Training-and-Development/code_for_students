@@ -1,9 +1,12 @@
 import { Mail, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import HeroImage from "../assets/hero-section.avif";
+import { useContext } from "react";
+import { CounterContext } from "../provider/CounterProvider";
 
 const HeroSection = () => {
-  
+  const { setCounter } = useContext(CounterContext)
+
   return (
     <section
       id="home"
@@ -37,6 +40,8 @@ const HeroSection = () => {
             >
               Contact Me <Mail size={18} />
             </a>
+
+            <button onClick={() => setCounter(prev => prev + 1)} className="bg-red-500 text-white p-2 rounded-md">Update Counter + 1</button>
           </div>
         </motion.div>
 

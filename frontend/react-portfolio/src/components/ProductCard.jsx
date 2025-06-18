@@ -1,7 +1,6 @@
 import { Star, ShoppingCart } from "lucide-react";
 
 const ProductCard = ({ product }) => {
-  console.log("product => ", product);
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col gap-3 h-[300px] shadow-lg">
       <img

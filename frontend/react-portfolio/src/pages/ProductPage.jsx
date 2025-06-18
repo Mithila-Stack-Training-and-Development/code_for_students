@@ -2,18 +2,31 @@ import { useEffect, useState } from "react"
 import Layout from "../components/Layout"
 import ProductCard from "../components/ProductCard"
 import axios from "axios"
+import { useCounter } from "../provider/CounterProvider"
 
 
 
 const ProductPage = () => {
+  const {setCounter} = useCounter()
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState([])
+  const [refetch , setRefetch] = useState(false)
 
   console.log("data => ", data)
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, [refetch])
+
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      setCounter(prev => prev + 1)
+    }, 2000);
+
+    return ()=>{
+      clearInterval(interval)
+    }
+  })
 
 
 
@@ -41,6 +54,10 @@ const ProductPage = () => {
 
   return (
     <Layout>
+      <div className="mt-20">
+        <button onClick={()=>setRefetch(!refetch)} className="text-white bg-red-500 p-2 rounded-md">Refresh</button>
+      </div>
+
       <div className="min-h-screen pt-20 grid grid-cols-4">
         {
           data.map((item) => {
