@@ -1,19 +1,23 @@
 import { Mail, Phone, MapPin, Send, Loader } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
+const intialValues = {
+  name: "",
+  email: "",
+  message: "",
+  phone: ""
+}
 const ContactSection = () => {
   // const [name, setName] = useState("")
   // const [email, setEmail] = useState("")
   // const [message, setMessage] = useState("")
 
   const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState(intialValues)
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  })
 
   const [errors, setErrors] = useState({})
 
@@ -50,9 +54,9 @@ const ContactSection = () => {
     return errors
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     const errors = validate(formData) // {} 
 
     if (Object.keys(errors).length > 0) {
@@ -61,16 +65,37 @@ const ContactSection = () => {
       setErrors(errors)
 
     } else {
+      const payload = formData;
 
-      console.log("into else block")
+      // fetch("http://localhost:5001/api/contacts",{
+      //   method:"POST",
+      //   body:JSON.stringify(payload),
+      //   headers:{
+      //     "Content-Type":"application/json"
+      //   }
+      // }).then((res) => {
+      //   res.json((data)=>{
+      //     console.log("data => ", data)
 
+      //   })
+      //   console.log(res)
+      // }).finally(()=>{
+      //   setLoading(false)
+      // })
 
-      setLoading(true)
+      try {
+        const response = await axios.post("http://localhost:5001/api/contacts", payload)
 
-      setTimeout(() => {
+        if (response.status == 201) {
+          toast.success(response.data.message)
+          setFormData(intialValues)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      } finally {
         setLoading(false)
-        alert("Form Submit successfully")
-      }, 3000);
+      }
+
 
     }
   }
@@ -158,6 +183,21 @@ const ContactSection = () => {
                 className="w-full mt-1 p-2 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
               />
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Your Phone
+              </label>
+              <input
+                value={formData.phone}
+                type="phone"
+                id="phone"
+                name="phone"
+                onChange={handleChange}
+                className="w-full mt-1 p-2 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
+              />
+              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
             </div>
 
             <div>

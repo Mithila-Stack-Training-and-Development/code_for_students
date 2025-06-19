@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Layout from '../components/Layout'
-import { Loader } from 'lucide-react'
 import ContactSection from '../components/ContactSection'
 
 const ContactPage = () => {

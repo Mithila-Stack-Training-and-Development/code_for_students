@@ -3,9 +3,9 @@ import Footer from "../components/Footer"
 import Layout from "../components/Layout"
 import Navbar from "../components/Navbar"
 
-const AboutPage = () => {
+const AboutPage = (props) => {
   return (
-    <Layout>
+    <Layout count={props.count}>
       <AboutSection />
     </Layout>
   )
