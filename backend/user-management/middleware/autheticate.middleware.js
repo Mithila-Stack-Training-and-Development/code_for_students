@@ -15,6 +15,8 @@ export const authenticate = (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
 
+    req.user = decode;
+
     next();
   } catch (error) {
     return res
